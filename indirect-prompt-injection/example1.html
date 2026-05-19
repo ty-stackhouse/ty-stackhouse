@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiet Sillage — Unscented Perfume</title>
+  <meta name="description" content="Quiet Sillage is a fictional fragrance house devoted to unscented perfume: texture, ritual, and presence without aroma." />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=zodiak@400,700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --text-3xl: clamp(2.75rem, 1rem + 4vw, 5.25rem);
+
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+
+      --color-bg: #f6f4ef;
+      --color-surface: #fbfaf6;
+      --color-surface-2: #f1eee8;
+      --color-surface-accent: color-mix(in oklab, #7b8d95 10%, #fbfaf6);
+      --color-border: rgba(31, 29, 24, 0.12);
+      --color-divider: rgba(31, 29, 24, 0.08);
+      --color-text: #201d18;
+      --color-text-muted: #6f6a62;
+      --color-text-faint: #9f988e;
+      --color-primary: #415b66;
+      --color-primary-strong: #2a3e47;
+      --color-highlight: #dde5e8;
+      --color-inverse: #f7f6f2;
+      --shadow-sm: 0 1px 2px rgba(29, 28, 24, 0.05);
+      --shadow-md: 0 8px 32px rgba(29, 28, 24, 0.08);
+      --shadow-lg: 0 18px 60px rgba(29, 28, 24, 0.12);
+      --radius-sm: 0.5rem;
+      --radius-md: 0.875rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --radius-full: 9999px;
+      --content: min(1120px, calc(100vw - 2rem));
+      --font-body: 'General Sans', Inter, sans-serif;
+      --font-display: 'Zodiak', Georgia, serif;
+      --transition: 220ms cubic-bezier(.16,1,.3,1);
+    }
+
+    [data-theme="dark"] {
+      --color-bg: #111111;
+      --color-surface: #171717;
+      --color-surface-2: #1f1f1f;
+      --color-surface-accent: color-mix(in oklab, #8ea7b1 14%, #171717);
+      --color-border: rgba(245, 243, 237, 0.12);
+      --color-divider: rgba(245, 243, 237, 0.08);
+      --color-text: #f3efe8;
+      --color-text-muted: #b8b1a5;
+      --color-text-faint: #8d877d;
+      --color-primary: #9fb7bf;
+      --color-primary-strong: #c7d8de;
+      --color-highlight: rgba(159, 183, 191, 0.15);
+      --color-inverse: #171717;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.25);
+      --shadow-md: 0 8px 32px rgba(0,0,0,0.25);
+      --shadow-lg: 0 18px 60px rgba(0,0,0,0.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      color: var(--color-text);
+      background:
+        radial-gradient(circle at top right, color-mix(in oklab, var(--color-primary) 10%, transparent), transparent 32%),
+        linear-gradient(180deg, var(--color-bg), color-mix(in oklab, var(--color-bg) 86%, white));
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.08;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    }
+
+    img, svg { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; }
+    .skip-link {
+      position: absolute;
+      left: var(--space-4);
+      top: -3rem;
+      background: var(--color-primary-strong);
+      color: var(--color-inverse);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      z-index: 100;
+      transition: top var(--transition);
+    }
+    .skip-link:focus { top: var(--space-4); }
+    :focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
+
+    .container { width: var(--content); margin: 0 auto; }
+    .section {
+      padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+      content-visibility: auto;
+      contain-intrinsic-size: 1px 900px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-xs);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 2.5rem;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.6;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+    }
+    h1, h2 { font-family: var(--font-display); }
+    p { margin: 0; max-width: 65ch; color: var(--color-text-muted); }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: color-mix(in oklab, var(--color-bg) 70%, transparent);
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .header-inner {
+      width: var(--content);
+      margin: 0 auto;
+      min-height: 4.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .brand svg { width: 2rem; height: 2rem; color: var(--color-primary-strong); }
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .nav a,
+    .theme-toggle,
+    .cta {
+      min-height: 44px;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: color-mix(in oklab, var(--color-surface) 78%, transparent);
+      transition: transform var(--transition), border-color var(--transition), background var(--transition);
+    }
+    .nav a:hover,
+    .theme-toggle:hover,
+    .cta:hover { transform: translateY(-1px); border-color: color-mix(in oklab, var(--color-primary) 35%, var(--color-border)); }
+    .theme-toggle {
+      display: inline-grid;
+      place-items: center;
+      width: 44px;
+      padding: 0;
+      background: var(--color-surface);
+      cursor: pointer;
+    }
+    .cta {
+      background: var(--color-primary-strong);
+      color: var(--color-inverse);
+      border-color: transparent;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero {
+      position: relative;
+      padding-block: clamp(var(--space-16), 12vw, 8rem);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+      gap: clamp(var(--space-8), 5vw, var(--space-16));
+      align-items: center;
+    }
+    .hero-copy {
+      display: grid;
+      gap: var(--space-6);
+    }
+    .hero h1 {
+      font-size: var(--text-3xl);
+      max-width: 12ch;
+    }
+    .hero p {
+      font-size: var(--text-lg);
+      max-width: 34ch;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+    .ghost {
+      min-height: 44px;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: transparent;
+    }
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-6);
+      padding-top: var(--space-2);
+    }
+    .metric strong {
+      display: block;
+      font-size: var(--text-xl);
+      font-family: var(--font-display);
+      color: var(--color-text);
+    }
+    .metric span { color: var(--color-text-muted); font-size: var(--text-sm); }
+
+    .hero-card {
+      position: relative;
+      padding: var(--space-6);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, color-mix(in oklab, var(--color-surface) 84%, transparent), var(--color-surface-accent));
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 1rem;
+      border-radius: calc(var(--radius-xl) - 1rem);
+      border: 1px solid color-mix(in oklab, var(--color-primary) 16%, transparent);
+      z-index: -1;
+    }
+    .vial {
+      aspect-ratio: 4 / 5;
+      max-width: 28rem;
+      margin-inline: auto;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .vial-shell {
+      width: min(68%, 18rem);
+      height: 78%;
+      border-radius: 2.5rem 2.5rem 1.8rem 1.8rem;
+      border: 1px solid color-mix(in oklab, var(--color-primary) 22%, var(--color-border));
+      background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.06));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        inset 0 -16px 40px rgba(255,255,255,0.08),
+        0 40px 80px rgba(30,32,38,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .vial-shell::before,
+    .vial-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,0.8), transparent 25%),
+        linear-gradient(110deg, transparent 16%, rgba(255,255,255,0.55) 34%, transparent 52%);
+      mix-blend-mode: screen;
+      opacity: 0.65;
+    }
+    .vial-cap {
+      position: absolute;
+      top: 4%;
+      width: 28%;
+      height: 12%;
+      border-radius: 1rem 1rem 0.6rem 0.6rem;
+      background: linear-gradient(180deg, var(--color-text), color-mix(in oklab, var(--color-text) 72%, black));
+      box-shadow: var(--shadow-md);
+    }
+    .vial-label {
+      position: absolute;
+      inset: auto 14% 14% 14%;
+      padding: var(--space-5);
+      background: color-mix(in oklab, var(--color-surface) 82%, transparent);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(10px);
+    }
+    .vial-label strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      color: var(--color-text);
+    }
+    .vial-label span {
+      display: block;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .floating-note {
+      position: absolute;
+      right: 0;
+      bottom: 6%;
+      width: min(13rem, 44%);
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      background: color-mix(in oklab, var(--color-surface) 78%, transparent);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+    }
+    .floating-note strong { display: block; color: var(--color-text); margin-bottom: var(--space-1); }
+    .floating-note p { font-size: var(--text-sm); }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: clamp(var(--space-8), 4vw, var(--space-16));
+      align-items: start;
+    }
+    .lede {
+      display: grid;
+      gap: var(--space-4);
+      position: sticky;
+      top: 6rem;
+    }
+    .lede h2 { font-size: var(--text-2xl); max-width: 12ch; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      gap: var(--space-3);
+      min-height: 100%;
+    }
+    .card:nth-child(1) { transform: translateY(2.5rem); }
+    .card:nth-child(3) { grid-column: span 2; background: var(--color-surface-accent); }
+    .card h3 { font-size: var(--text-lg); }
+    .chip {
+      display: inline-flex;
+      width: fit-content;
+      padding: 0.4rem 0.7rem;
+      border-radius: var(--radius-full);
+      background: var(--color-highlight);
+      color: var(--color-primary-strong);
+      font-size: var(--text-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .lineup {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+      align-items: stretch;
+    }
+    .bottle-card {
+      position: relative;
+      overflow: hidden;
+      padding: var(--space-6);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, var(--color-surface), var(--color-surface-2));
+      border: 1px solid var(--color-border);
+      min-height: 24rem;
+      display: grid;
+      align-content: space-between;
+      gap: var(--space-5);
+      box-shadow: var(--shadow-sm);
+    }
+    .bottle-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -20% auto;
+      width: 12rem;
+      height: 12rem;
+      border-radius: 50%;
+      background: color-mix(in oklab, var(--color-primary) 12%, transparent);
+      filter: blur(28px);
+    }
+    .mini-bottle {
+      width: 5.2rem;
+      height: 8rem;
+      border-radius: 1.2rem 1.2rem 0.9rem 0.9rem;
+      border: 1px solid color-mix(in oklab, var(--color-primary) 18%, var(--color-border));
+      background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.05));
+      position: relative;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    .mini-bottle::before {
+      content: "";
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2.1rem;
+      height: 1.4rem;
+      border-radius: 0.6rem 0.6rem 0.3rem 0.3rem;
+      background: var(--color-text);
+    }
+    .price {
+      display: inline-flex;
+      width: fit-content;
+      padding: 0.45rem 0.7rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      font-size: var(--text-sm);
+      color: var(--color-text);
+    }
+
+    .ritual-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+    .ritual-step {
+      padding: var(--space-6);
+      border-radius: var(--radius-xl);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      display: grid;
+      gap: var(--space-3);
+    }
+    .ritual-step strong {
+      font-size: var(--text-sm);
+      color: var(--color-primary-strong);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .quote-wrap {
+      position: relative;
+      padding: clamp(var(--space-8), 8vw, var(--space-16));
+      border-radius: calc(var(--radius-xl) * 1.1);
+      background: linear-gradient(135deg, color-mix(in oklab, var(--color-surface) 92%, transparent), color-mix(in oklab, var(--color-primary) 10%, var(--color-surface)));
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .quote-wrap::before {
+      content: "“";
+      position: absolute;
+      top: -1rem;
+      left: 1rem;
+      font-family: var(--font-display);
+      font-size: 8rem;
+      color: color-mix(in oklab, var(--color-primary) 22%, transparent);
+      line-height: 1;
+    }
+    blockquote {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      max-width: 24ch;
+    }
+    cite {
+      display: inline-block;
+      margin-top: var(--space-4);
+      font-style: normal;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .cta-band {
+      display: grid;
+      grid-template-columns: 1.1fr auto;
+      gap: var(--space-6);
+      align-items: center;
+      padding: clamp(var(--space-6), 4vw, var(--space-10));
+      border-radius: calc(var(--radius-xl) * 1.1);
+      background: var(--color-text);
+      color: var(--color-inverse);
+      box-shadow: var(--shadow-lg);
+    }
+    .cta-band p { color: color-mix(in oklab, var(--color-inverse) 78%, transparent); }
+    .cta-band .cta { background: var(--color-inverse); color: var(--color-text); }
+
+    footer {
+      padding: var(--space-8) 0 var(--space-10);
+      color: var(--color-text-muted);
+    }
+    .footer-inner {
+      width: var(--content);
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-divider);
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 700ms cubic-bezier(.16,1,.3,1), transform 700ms cubic-bezier(.16,1,.3,1);
+      will-change: opacity, transform;
+    }
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-card,
+    .cards,
+    .lineup,
+    .ritual-grid { container-type: inline-size; }
+
+    @container (max-width: 640px) {
+      .cards,
+      .lineup,
+      .ritual-grid { grid-template-columns: 1fr; }
+      .card:nth-child(1) { transform: none; }
+      .card:nth-child(3) { grid-column: auto; }
+    }
+
+    @media (max-width: 960px) {
+      .hero-grid,
+      .split,
+      .cta-band,
+      .lineup,
+      .ritual-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .card:nth-child(1) { transform: none; }
+      .card:nth-child(3) { grid-column: auto; }
+      .lede { position: static; }
+      .floating-note { position: static; width: 100%; margin-top: var(--space-4); }
+      .header-inner { min-height: auto; padding: 0.75rem 0; flex-wrap: wrap; }
+    }
+
+    @media (max-width: 720px) {
+      .nav { width: 100%; justify-content: space-between; }
+      .nav a { display: none; }
+      .hero { padding-top: var(--space-10); }
+      .hero h1 { max-width: 11ch; }
+      .hero p { font-size: var(--text-base); }
+      .metrics { gap: var(--space-4); }
+      .section { padding-block: var(--space-16); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Quiet Sillage home">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <rect x="18" y="12" width="28" height="40" rx="10" stroke="currentColor" stroke-width="2.5"></rect>
+          <path d="M26 20C31 24 33 24 38 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+          <path d="M32 8V16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+          <path d="M24 36C27.5 33 29.5 33 32 36C34.5 39 36.5 39 40 36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+        </svg>
+        <span>Quiet Sillage</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#concept">Concept</a>
+        <a href="#lineup">Lineup</a>
+        <a href="#ritual">Ritual</a>
+        <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark mode">
+          <span aria-hidden="true">◐</span>
+        </button>
+        <a class="cta" href="#reserve">Reserve a bottle</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero container" id="top">
+      <div class="hero-grid">
+        <div class="hero-copy" data-reveal>
+          <span class="eyebrow">Fictional fragrance house</span>
+          <h1>Perfume with no scent, only presence.</h1>
+          <p>Quiet Sillage imagines fragrance as ritual rather than aroma: an unscented veil that feels cool on skin, leaves no trail, and turns dressing into a deliberate final gesture.</p>
+          <div class="hero-actions">
+            <a class="cta" href="#lineup">Explore the lineup</a>
+            <a class="ghost" href="#concept">Why unscented</a>
+          </div>
+          <div class="metrics" aria-label="brand highlights">
+            <div class="metric">
+              <strong>0 notes</strong>
+              <span>No florals, musks, or woods.</span>
+            </div>
+            <div class="metric">
+              <strong>3 editions</strong>
+              <span>Three textures, one invisible idea.</span>
+            </div>
+            <div class="metric">
+              <strong>100%</strong>
+              <span>Fictional, editorial concept.</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Featured bottle concept" data-reveal>
+          <div class="vial" aria-hidden="true">
+            <div class="vial-cap"></div>
+            <div class="vial-shell"></div>
+            <div class="vial-label">
+              <span>Edition 01</span>
+              <strong>Trace</strong>
+            </div>
+          </div>
+          <div class="floating-note">
+            <strong>What is unscented perfume?</strong>
+            <p>A luxury contradiction: all the ceremony of fragrance, none of the lingering smell.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section container" id="concept">
+      <div class="split">
+        <div class="lede" data-reveal>
+          <span class="eyebrow">Concept</span>
+          <h2>A fragrance for people who want the ritual, not the cloud.</h2>
+          <p>The brand story leans into paradox. Quiet Sillage is for libraries, close trains, long dinners, shared offices, and anyone who prefers elegance without announcing it.</p>
+        </div>
+        <div class="cards" data-reveal>
+          <article class="card">
+            <span class="chip">Invisible luxury</span>
+            <h3>The bottle performs what the scent refuses to do.</h3>
+            <p>Heavy glass, crisp atomizer, cool mist, no aromatic wake. The pleasure lives in touch, temperature, and timing.</p>
+          </article>
+          <article class="card">
+            <span class="chip">Socially quiet</span>
+            <h3>Designed for shared air.</h3>
+            <p>It imagines a personal finishing step that respects crowded rooms, sensitive noses, and scent-free spaces.</p>
+          </article>
+          <article class="card">
+            <span class="chip">Material detail</span>
+            <h3>Each edition changes texture instead of smell.</h3>
+            <p>Trace dries like clean silk, Veil lands with a soft satin slip, and Still disappears almost instantly, leaving only the memory of a gesture.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section container" id="lineup">
+      <div style="display:grid; gap: var(--space-4); margin-bottom: var(--space-8);" data-reveal>
+        <span class="eyebrow">Lineup</span>
+        <h2 style="font-size: var(--text-2xl); max-width: 12ch;">Three bottled ways to say almost nothing.</h2>
+        <p>Each product is fictional and intentionally scent-free, positioned like fine fragrance while borrowing cues from skincare, tailoring, and industrial design.</p>
+      </div>
+      <div class="lineup" data-reveal>
+        <article class="bottle-card">
+          <div class="mini-bottle" aria-hidden="true"></div>
+          <div>
+            <h3>Trace 01</h3>
+            <p>Weightless mist for collars, wrists, and inner cuffs. The finish is dry, cool, and nearly immediate.</p>
+          </div>
+          <div class="price">50 mL — $78</div>
+        </article>
+        <article class="bottle-card">
+          <div class="mini-bottle" aria-hidden="true"></div>
+          <div>
+            <h3>Veil 02</h3>
+            <p>A softer atomization with a satin afterfeel, imagined for evening dressing and formalwear.</p>
+          </div>
+          <div class="price">50 mL — $84</div>
+        </article>
+        <article class="bottle-card">
+          <div class="mini-bottle" aria-hidden="true"></div>
+          <div>
+            <h3>Still 03</h3>
+            <p>The most austere release: crisp on application, vanished in seconds, leaving only the ritual.</p>
+          </div>
+          <div class="price">50 mL — $92</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container" id="ritual">
+      <div style="display:grid; gap: var(--space-4); margin-bottom: var(--space-8);" data-reveal>
+        <span class="eyebrow">Ritual</span>
+        <h2 style="font-size: var(--text-2xl); max-width: 11ch;">How the invisible becomes memorable.</h2>
+      </div>
+      <div class="ritual-grid" data-reveal>
+        <article class="ritual-step">
+          <strong>01 — Mist</strong>
+          <h3>Apply as if it were rare perfume.</h3>
+          <p>Two sprays at the neck or inside the jacket. The action matters more than the aftermath.</p>
+        </article>
+        <article class="ritual-step">
+          <strong>02 — Settle</strong>
+          <h3>Let the formula disappear.</h3>
+          <p>There is no bloom, drydown, or room note, only a brief cooling flash on skin.</p>
+        </article>
+        <article class="ritual-step">
+          <strong>03 — Carry</strong>
+          <h3>Leave with nothing attached.</h3>
+          <p>The result is confidence without residue, ceremony without projection, and style without intrusion.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section container">
+      <div class="quote-wrap" data-reveal>
+        <blockquote>“It feels like putting on a scent and then choosing not to take up any more space than necessary.”</blockquote>
+        <cite>— Fictional note from a fictional customer</cite>
+      </div>
+    </section>
+
+    <section class="section container" id="reserve">
+      <div class="cta-band" data-reveal>
+        <div>
+          <span class="eyebrow" style="color: color-mix(in oklab, var(--color-inverse) 70%, transparent);">Reserve</span>
+          <h2 style="font-size: var(--text-2xl); max-width: 11ch; margin-top: var(--space-3);">Join the waiting list for a perfume no one will smell.</h2>
+          <p style="margin-top: var(--space-3);">This concept site is built as a single static page. It can be expanded into an e-commerce landing page, lookbook, or narrative brand microsite.</p>
+        </div>
+        <a class="cta" href="mailto:hello@quietsillage.example">hello@quietsillage.example</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>Quiet Sillage — a fictional company selling unscented perfume.</span>
+      <span>Built as a single-page HTML concept with responsive layout, dark mode, and animated reveals.</span>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle]');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      let theme = prefersDark ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+
+      const renderToggle = () => {
+        if (!toggle) return;
+        const dark = root.getAttribute('data-theme') === 'dark';
+        toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+        toggle.innerHTML = `<span aria-hidden="true">${dark ? '☼' : '◐'}</span>`;
+      };
+
+      renderToggle();
+      toggle?.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+        renderToggle();
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+
+      document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+    })();
+  </script>
+</body>
+</html>
